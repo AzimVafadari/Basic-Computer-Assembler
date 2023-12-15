@@ -1,4 +1,4 @@
-ADDRESS_SYMBOL_TABLE = {}
+ADDRESS_SYMBOL_TABLE = dict()
 """ Memory Reference Instructions (MRI) """
 MRI = {"AND": ["0", "8"], "ADD": ["1", "9"], "LDA": ["2", "A"], "STA": ["3", "B"],
        "BUN": ["4", "C"], "BSA": ["5", "D"], "ISZ": ["6", "E"]}
