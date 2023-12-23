@@ -49,6 +49,8 @@ def second_pass(input_file_name: str):
                     output_writer('./outputs/out.asm', header_list, output, 't')
                 elif word in NON_MRI:
                     output[lc] = hex(NON_MRI[word])
+                else:
+                    print("Your code has an error in line " + lc)
             elif length == 2:
                 if word == "ORG":
                     lc = int(parts[1]) - 1
