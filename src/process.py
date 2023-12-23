@@ -53,18 +53,23 @@ def second_pass(input_file_name: str):
                 if word == "ORG":
                     lc = int(parts[1]) - 1
                 else:
+                    #دستور مربوط به بخش MRI است
                     if word in MRI:
                         hex_code = hex(int(MRI[word][0] + ADDRESS_SYMBOL[parts[1]], 16))
                         output[lc] = hex_code
+                        #دستور از این قالب پیروی میکند -> HEX 0000 و یا DEC -20
                     else:
                         output[lc] = convert_number_to_hex(word, parts[1])
             elif length == 3:
                 indirect = True
+                #دستور ما از این نوع است -> ABC, LDA DIF
                 if word[-1] == ',':
                     index1 = 1
                     index2 = 0
+                    # دستور ما از این نوع است -> ABC, HEX 0110
                     if parts[1] in PREUDOMSTRUCTION[1:3]:
                         indirect = False
+                # دستور ما از این نوع است -> LDA DIF I
                 else:
                     index1 = 0
                     index2 = 1
@@ -73,6 +78,7 @@ def second_pass(input_file_name: str):
                 else:
                     hex_code = convert_number_to_hex(parts[1], parts[2])
                 output[lc] = hex_code
+            # دستور ما از این نوع است -> ABC, LDA DIF I
             elif length == 4:
                 hex_code = hex(int(MRI[parts[1]][1] + ADDRESS_SYMBOL[parts[2]], 16))
                 output[lc] = hex_code
