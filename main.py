@@ -2,7 +2,7 @@ from src.process import run
 
 
 def main():
-    run(input())
+    run('subtraction.asm')
 
 
 # Press the green button in the gutter to run the script.

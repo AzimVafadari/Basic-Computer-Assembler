@@ -8,8 +8,8 @@ ADDRESS_SYMBOL = dict()
 
 
 def run(input_file_name):
-    handle_error(input_file_name)
-    first_pass(input_file_name)
+    if handle_error(input_file_name):
+        first_pass(input_file_name)
 
 
 def first_pass(input_file_name):
