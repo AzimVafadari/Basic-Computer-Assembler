@@ -40,6 +40,9 @@ def second_pass(input_file_name: str):
             parts = line.split()
             word = parts[0]
             length = len(parts)
+            if word in NON_MRI and length > 1:
+                error_in_line("Your code has an error in line ", lc + 1 - org)
+                break
             # دستور ما یا END هست یا ثباتی است
             if length == 1:
                 # END
@@ -68,8 +71,11 @@ def second_pass(input_file_name: str):
                         hex_code = hex(int(MRI[word][0] + ADDRESS_SYMBOL[parts[1]], 16))
                         output[lc] = hex_code
                         # دستور از این قالب پیروی میکند -> HEX 0000 و یا DEC -20
-                    else:
+                    elif word == 'DEC' or word == 'HEX':
                         output[lc] = convert_number_to_hex(word, parts[1])
+                    else:
+                        error_in_line("Your code has an error in line ", lc + 1 - org)
+                        break
             elif length == 3:
                 indirect = True
                 # دستور ما از این نوع است -> ABC, LDA DIF
