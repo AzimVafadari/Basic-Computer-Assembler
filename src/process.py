@@ -73,6 +73,10 @@ def second_pass(input_file_name: str):
                         # دستور از این قالب پیروی میکند -> HEX 0000 و یا DEC -20
                     elif word == 'DEC' or word == 'HEX':
                         output[lc] = convert_number_to_hex(word, parts[1])
+                    # دستور مربوط به غیر حافظه ای است
+                    # ABC, INC
+                    elif word[-1] == ',':
+                        output[lc] = hex(int(NON_MRI[parts[1]]))
                     else:
                         error_in_line("Your code has an error in line ", lc + 1 - org)
                         break
