@@ -10,6 +10,8 @@ ADDRESS_SYMBOL = dict()
 def run(input_file_name):
     if handle_error(input_file_name):
         first_pass(input_file_name)
+    else:
+        exit(1)
 
 
 def first_pass(input_file_name):
@@ -22,9 +24,15 @@ def first_pass(input_file_name):
             if parts[0][-1] == ',':
                 label = parts[0][:-1]
                 # ذخیره کردن سمبل در جدول سمبل ها
-                ADDRESS_SYMBOL[label] = str(lc)
+                if lc < 16:
+                    ADDRESS_SYMBOL[label] = "00" + hex(lc).removeprefix("0x")
+                    continue
+                if lc < 256:
+                    ADDRESS_SYMBOL[label] = "0" + hex(lc).removeprefix("0x")
+                else:
+                    ADDRESS_SYMBOL[label] = hex(lc).removeprefix("0x")
             elif parts[0] == 'ORG':
-                lc = int(parts[1]) - 1
+                lc = int(parts[1], 16) - 1
             elif parts[0] == 'END':
                 second_pass(input_file_name)
             lc += 1
@@ -60,7 +68,7 @@ def second_pass(input_file_name: str):
                     break
             elif length == 2:
                 if word == "ORG":
-                    lc = int(parts[1]) - 1
+                    lc = int(parts[1], 16) - 1
                     org = lc
                 else:
                     # دستور مربوط به بخش MRI است

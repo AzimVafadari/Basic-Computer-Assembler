@@ -28,13 +28,13 @@ def output_writer(path: str, header: list, object_dict: dict, mode: str):
     if mode == 'b':
         with open(path, 'wb+') as output:
             for memory_location in header:
-                output.write(object_dict[memory_location])
+                output.write(str(memory_location) + " -> " + object_dict[memory_location])
     elif mode == 't':
         with open(path, 'w+') as output:
             for memory_location in header:
                 integer = struct.unpack('>i', object_dict[memory_location])
                 integer = integer[0]
-                output.write(dec2bin(integer, 16) + '\n')
+                output.write(hex(memory_location) + "\t-->\t" + dec2bin(integer, 16) + '\n')
 
 
 def dec2bin(decimal, bits) -> str:
